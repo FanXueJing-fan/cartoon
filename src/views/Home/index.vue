@@ -11,13 +11,37 @@
         <div class="header-search"></div>
       </a>
     </header>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+          <div class="swiper-slide">Slide 1</div>
+          <div class="swiper-slide">Slide 2</div>
+          <div class="swiper-slide">Slide 3</div>
+      </div>
+      <!-- 如果需要分页器 -->
+      <div class="swiper-pagination"></div>
+    </div>
+
   </div>
 </template>
 
 <script>
+import Swiper from 'swiper/swiper-bundle.js'
+import 'swiper/swiper-bundle.css'
 export default {
-  name: 'Home'
+  name: 'Home',
+  mounted () {
+    // 要在获取到真实BOM节点才可以，故写在mounted
+    /* eslint-disable */ 
+    new Swiper('.swiper-container', {
+      loop:true,
+      pagination: {
+        el: '.swiper-pagination',
+      }
+    })
+    /* eslint-enable */
+  }
 }
+
 </script>
 
 <style lang='scss' scoped>
@@ -51,6 +75,10 @@ export default {
       background: url(~@/assets/icon/header-search.png);
       background-size: 100%;
     }
+  }
+  .swiper-container{
+    width: 100%;
+    height: 170px;
   }
 }
 </style>

@@ -47,6 +47,9 @@ table {
 	border-spacing: 0;
 }
 html,body,#app{
+	// 设置一个最大宽度max-width: 540px; 但是现在已经将全局px为适应宽度转为了rem,若不想其宽度跟着设备宽度变化，可将大写。但现在的问题是不协调，所有的东西随着设备在变，受最大宽度影响。解决方式是：当达到最大宽度时，即使设备还在增大，控制是所有不在变化
+  max-width: 540PX;
   height: 100%;
   margin: auto;
+  background-color: lightslategrey;
 }
