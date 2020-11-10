@@ -16,7 +16,14 @@ import 'swiper/swiper-bundle.css'
 
 export default {
   name: 'Swiper',
+  props: {
+    autoplay: {
+      type: Number,
+      default: 0
+    }
+  },
   mounted () {
+    var that = this
     // 要在获取到真实BOM节点才可以，故写在mounted
     /*
       解决组件间复用的关键是：实例化当前这个DOM节点
@@ -27,20 +34,38 @@ export default {
     /* eslint-disable */ 
     new Swiper(this.$refs.Swiper, {
       loop:true,
+      autoplay: this.autoplay ? {
+        delay: this.autoplay,
+        stopOnLastSlide: false,
+        disableOnInteraction: true
+      } : false,
       pagination: {
         el: '.swiper-pagination',
+      },
+      on : {
+        slideChangeTransitionEnd: function () {
+          // console.log(this.activeIndex)
+          // console.log(this.realIndex)
+          // 触发一个自定义事件
+          /*
+            这里涉及一个问题：子到父传值，此时应该调用Vue组件的$emit,但当前的this是new Swiper实例中的this
+          */ 
+          that.$emit('change', this.realIndex)
+        }
       }
     })
     /* eslint-enable */
   }
 }
 </script>
-
-//  我现在想要重新写小圆点，引入swiper，浏览器就会加载出小圆点的样式，不能放在scoped(只会合并或者是权重相同没有效果)，想要实现全局改变，就要放在全局，而不是局部
+<style lang="scss" scoped>
+  .swiper-container{
+    width: 100%;
+    height: 180px;
+    font-size: 20px;
+  }
+</style>
 <style lang="scss">
-   .swiper-container{
-        width: 100%;
-        height: 170px;
     .swiper-pagination-bullet {
       opacity: 1;
       vertical-align: middle;
@@ -56,5 +81,4 @@ export default {
       background: url("../../assets/icon/dot.png") no-repeat;
       background-size: 100%;
     }
-  }
 </style>

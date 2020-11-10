@@ -12,7 +12,7 @@
       </a>
     </header>
     <!-- 轮播图 -->
-   <Swiper>
+   <Swiper :autoplay = "3000">
      <SwiperItem>1</SwiperItem>
      <SwiperItem>2</SwiperItem>
      <SwiperItem>3</SwiperItem>
@@ -28,17 +28,24 @@ export default {
   components: {
     Swiper,
     SwiperItem
+  },
+  methods: {
+    changeHandle (payload) {
+      console.log('index', payload)
+    }
   }
 }
 
 </script>
 
 <style lang='scss' scoped>
+@import '~@/assets/styles/mixins.scss';
 .page-home{
   display: flex;
   flex-direction: column;
   height: 100%;
   .index-header {
+    @include border-bottom;
     display: flex;
     height: 44px;
     //三者等分平铺
