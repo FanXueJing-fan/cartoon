@@ -49,8 +49,6 @@ export default {
         } else {
           alert(res.code_msg)
         }
-      }).catch(err => {
-        alert('网络异常，请稍后：' + err)
       })
     },
     getTypesList (subject) {
@@ -60,9 +58,6 @@ export default {
         } else {
           console.log(res.code_msg)
         }
-      }).catch(err => {
-        console.log(err)
-        alert('网络异常，请稍后重试')
       })
     },
     onChange (payload) {
@@ -77,6 +72,7 @@ export default {
   async created () {
     await this.getTypes()
     this.getTypesList(this.types[0].targetargument)
+    console.log(this.getTypesList(this.types[0].targetargument))
   }
 }
 </script>

@@ -1,6 +1,7 @@
 // 引入所有的组件名大写
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 import Classify from '../views/Classify/index'
 import Hello from '../views/Hello'
@@ -14,6 +15,10 @@ import Register from '../views/Register'
 import Search from '../views/Search'
 import SearchResult from '../views/SearchResult'
 import Vip from '../views/Vip'
+import City from '../views/City'
+import nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
+nprogress.configure({ showSpinner: false })
 
 Vue.use(VueRouter)
 
@@ -48,7 +53,26 @@ const router = new VueRouter({
     { path: '/register', component: Register },
     { path: '/search', component: Search },
     { path: '/searchResult', component: SearchResult },
-    { path: '/vip', component: Vip }
+    { path: '/vip', component: Vip },
+    { path: '/city', component: City }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  nprogress.start()
+  // to是当前页面 store.state.city.curCity是因为给模块起了名字
+  if (!store.state.city.curCity && to.path !== '/city') {
+    next({
+      path: '/city',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+  } else {
+    next()
+  }
+})
+router.afterEach((to, from) => {
+  nprogress.done()
 })
 export default router

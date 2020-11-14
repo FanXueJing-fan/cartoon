@@ -1,5 +1,6 @@
 <template>
   <div class = 'page-home'>
+    <router-link to="/city">当前城市为：{{$store.getters['city/curCityName']}}</router-link>
    <index-header></index-header>
     <!-- 轮播图 -->
    <div class="index-main">
@@ -66,8 +67,6 @@ export default {
         } else {
           alert(res.code_msg)
         }
-      }).catch(err => {
-        alert('网络异常，请稍后：' + err)
       })
     },
     getIndexRecomment () {
@@ -77,8 +76,6 @@ export default {
         } else {
           alert(res.code_msg)
         }
-      }).catch(err => {
-        alert('网络异常，请稍后：' + err)
       })
     }
   },
